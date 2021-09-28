@@ -3,7 +3,8 @@ import { AppHeader, AppSider, AppFooter } from './components';
 import { SDashBoard, Documents, Calendar, MyApplications, MyQueries } from './pages/student';
 import { Profile } from './pages/common';
 import {
- Route, Switch
+  BrowserRouter
+  ,Route, Switch
 } from 'react-router-dom';
 import { Layout } from 'antd';
 import {
@@ -29,6 +30,7 @@ let studentSiderData = [
 ]
 
 return (
+  <BrowserRouter>
         <Layout style={{ minHeight: '100vh' }}>
         <AppHeader />
 
@@ -49,5 +51,6 @@ return (
           </Layout>
         </Layout>
       </Layout>
+      </BrowserRouter>
     )
 }

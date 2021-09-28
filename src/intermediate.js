@@ -19,8 +19,8 @@ export default function Itermediate() {
         if (id_token != null) {
             sessionStorage.setItem('id_token', id_token);
             sessionStorage.setItem('u_decoded', JSON.stringify(jwt(id_token)))
-            history.push('/s/Profile/edit')
-    
+            history.push('/s')
+
         }
     }
     catch (e) {
