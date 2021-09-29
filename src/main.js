@@ -3,20 +3,14 @@ import { AppHeader, AppSider, AppFooter } from './components';
 import { SDashBoard, Documents, Calendar, MyApplications, MyQueries } from './pages/student';
 import { Profile } from './pages/common';
 import ProtectedRoute from './Routes/ProtectedRoute'
-
-import {
-  BrowserRouter
-  ,Route, Switch,Redirect
-} from 'react-router-dom';
 import { Layout } from 'antd';
 import {
-    ProfileOutlined,
-    PieChartOutlined,
-    FileOutlined,
-    UserOutlined,
-    CalendarOutlined,
-    QuestionOutlined,
-  } from '@ant-design/icons';
+  BrowserRouter, Switch, Redirect,
+} from 'react-router-dom';
+import {
+    ProfileOutlined, PieChartOutlined,FileOutlined,
+    UserOutlined, CalendarOutlined,QuestionOutlined,
+} from '@ant-design/icons';
   
 const { Content } = Layout;
 

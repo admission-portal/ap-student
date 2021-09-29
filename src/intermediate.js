@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import {UserContext} from './contexts/user'
 export default function Itermediate() {
     const history = useHistory();
-    const [user,setUser]=useContext(UserContext)
+    const [,setUser]=useContext(UserContext)
     try {
         /*  NOTE: need to check the condition here
         *   try-catch is temp here
