@@ -6,7 +6,7 @@ export default function SDashBoard() {
 
     return (
         <div className="SDashboard" style={{ marginTop: '1.5em' }}>
-            <Layout style={{ minHeight: '100vh' }}>
+            <Layout style={{ minHeight: '85vh' }}>
                 <Row >
                     <Col xs={24} xl={24}>
                         <div className="SDashboard_TopTitle">
