@@ -44,7 +44,7 @@ export default function SDashBoard() {
                                 <Typography.Title level={4}>Latest Notifications</Typography.Title>
                             </div>
                             <div style={{paddingLeft:'1.5em'}} className="SDashboard_NotificationContainer_Body">
-                                <Steps direction="vertical" progressDot  current={4}>
+                                <Steps direction="vertical" progressDot  current={101}>
                                     <Steps.Step title="Join our experts in an exclusive webinar on 'Careers after BTECH'" description=" 15 Oct 2021" />
                                     <Steps.Step title="results of Aptitude Test phase 1 is out" description="12 Oct 2021" />
                                     <Steps.Step title="Last date to submit your Application form has been extended till 31st Oct 2021." description="12 Oct 2021" />
