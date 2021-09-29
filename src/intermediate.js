@@ -1,8 +1,10 @@
+import {useContext} from 'react';
 import jwt from 'jwt-decode'
 import { useHistory } from 'react-router-dom';
+import {UserContext} from './contexts/user'
 export default function Itermediate() {
     const history = useHistory();
-
+    const [user,setUser]=useContext(UserContext)
     try {
         /*  NOTE: need to check the condition here
         *   try-catch is temp here
@@ -19,6 +21,7 @@ export default function Itermediate() {
         if (id_token != null) {
             sessionStorage.setItem('id_token', id_token);
             sessionStorage.setItem('u_decoded', JSON.stringify(jwt(id_token)))
+            setUser(JSON.stringify(jwt(id_token)))
             history.push('/s')
 
         }
