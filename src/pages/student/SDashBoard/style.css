@@ -43,3 +43,7 @@
     box-shadow: 1px 1px 4px -0.3px rgba(84,84,84,0.15);
 
 }
+.SDashboard_NotificationContainer_Body{
+    height: 24em;
+    overflow-y: auto;
+}
