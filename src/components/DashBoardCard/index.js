@@ -24,6 +24,7 @@ export default function DashBoardCard({ title, subSpan }) {
                 <div className="SDashboard_Card_BodySymbol">
                     <ArrowRightOutlined />
                 </div>
+
             </div>
 
         </div>
