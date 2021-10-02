@@ -1,20 +1,20 @@
 /**
  * SUBCARD:
  * tiny Cards , that will be embedded in the containers for example ApplicationCard
- * 
+ * @param data - object which contains @title and @subtitle
  *  Written By : Tejas ladhani
  */
 import { Typography } from 'antd';
 import './style.css';
 
-export default function Subcard() {
+export default function Subcard({ data }) {
     return (
         <div className="Subcard">
             <div>
-                <Typography.Text type='secondary'>Application No.</Typography.Text>
+                <Typography.Text type='secondary'>{data.title}</Typography.Text>
             </div>
             <div>
-                <Typography.Text>BTECH-234/WER</Typography.Text>
+                <Typography.Text>{data.subtitle}</Typography.Text>
             </div>
         </div>
     )
