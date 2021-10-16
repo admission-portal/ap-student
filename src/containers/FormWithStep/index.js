@@ -5,15 +5,19 @@ const { Step } = Steps;
 
 const steps = [
     {
-        title: 'First',
+        title: 'Personal Details',
         content: 'First-content',
     },
     {
-        title: 'Second',
+        title: 'Schools and Results',
         content: 'Second-content',
     },
     {
-        title: 'Last',
+        title: 'Upload Documents',
+        content: 'Last-content',
+    },
+    {
+        title: 'Fees Payment',
         content: 'Last-content',
     },
 ];
