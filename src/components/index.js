@@ -9,4 +9,3 @@ export { default as FormComp } from './FormComp';
 export { default as Subcard } from './Subcard';
 export { default as ApplicationDownloadPanel } from './ApplicationDownloadPanel';
 export { default as ApplicationSteps } from './ApplicationSteps';
-export { default as FormWithStep } from './FormWithStep';
