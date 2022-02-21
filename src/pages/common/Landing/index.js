@@ -1,6 +1,8 @@
 import "./style.css";
 import { useHistory } from "react-router-dom";
 import { AppHeader } from "../../../components";
+import Build from "./build.jpg";
+
 export default function Landing() {
   const history = useHistory();
   const hostedUI =
@@ -10,7 +12,7 @@ export default function Landing() {
     <div className="Landing">
       <AppHeader />
       <section className="showcase">
-        <img src="/assests/build.jpg" alt="..." />
+        <img src={Build} alt="..." />
         <div className="overlay"></div>
         <div className="text">
           <h2>adMISSION Portal </h2>
