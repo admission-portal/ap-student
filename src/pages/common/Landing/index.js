@@ -10,7 +10,7 @@ export default function Landing() {
 
   return (
     <div className="Landing">
-      <AppHeader />
+      {/* <AppHeader />  component not necessary for Landing page*/}
       <section className="showcase">
         <img src={Build} alt="..." />
         <div className="overlay"></div>
