@@ -3599,29 +3599,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"admission-p@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "admission-p@workspace:."
-  dependencies:
-    "@ant-design/charts": ^1.2.13
-    "@ant-design/icons": ^4.7.0
-    "@testing-library/jest-dom": ^5.11.4
-    "@testing-library/react": ^11.1.0
-    "@testing-library/user-event": ^12.1.10
-    antd: ^4.16.13
-    axios: ^0.23.0
-    eslint-config-react-app: ^6.0.0
-    gh-pages: ^3.2.3
-    jwt-decode: ^3.1.2
-    react: ^17.0.2
-    react-dom: ^17.0.2
-    react-router-dom: ^5.3.0
-    react-scripts: 4.0.3
-    uuid: ^8.3.2
-    web-vitals: ^1.0.1
-  languageName: unknown
-  linkType: soft
-
 "agent-base@npm:6, agent-base@npm:^6.0.2":
   version: 6.0.2
   resolution: "agent-base@npm:6.0.2"
@@ -3875,6 +3852,29 @@ __metadata:
   checksum: 985163db2292fac9e5a1e072bf99f1b5baccf196e4de25a0b0b81865ebddeb3b3eb4480734ef0a2ac8c002845396b91aa89121f5b84f93981a4658164a9ec6e9
   languageName: node
   linkType: hard
+
+"ap-student@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "ap-student@workspace:."
+  dependencies:
+    "@ant-design/charts": ^1.2.13
+    "@ant-design/icons": ^4.7.0
+    "@testing-library/jest-dom": ^5.11.4
+    "@testing-library/react": ^11.1.0
+    "@testing-library/user-event": ^12.1.10
+    antd: ^4.16.13
+    axios: ^0.23.0
+    eslint-config-react-app: ^6.0.0
+    gh-pages: ^3.2.3
+    jwt-decode: ^3.1.2
+    react: ^17.0.2
+    react-dom: ^17.0.2
+    react-router-dom: ^5.3.0
+    react-scripts: 4.0.3
+    uuid: ^8.3.2
+    web-vitals: ^1.0.1
+  languageName: unknown
+  linkType: soft
 
 "aproba@npm:^1.0.3 || ^2.0.0":
   version: 2.0.0

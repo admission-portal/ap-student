@@ -9,16 +9,16 @@ import {
   LogoutOutlined,
 } from '@ant-design/icons';
 import { Layout } from 'antd';
+import './style.css';
 
 function AppHeader() {
   const { Header } = Layout;
 
   return (
     <Header className="site-layout-background Header" >
-      <div  className='logo' style={{display:'flex',justifyContent:'space-between'}} >
-        <h2 style={{color:'white'}}>Handle My Admissions</h2>
-        {/* <img style={{height:'50px', width:'50px'}} src='/computer.png'/> */}
-        {/* <LogoutOutlined /> */}
+       <div className="logout">
+        <span> 👨‍🎓 ad</span>
+        <span>MISSION</span>
       </div>
     </Header>
   )
