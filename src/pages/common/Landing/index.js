@@ -6,7 +6,7 @@ import Build from "./build.jpg";
 export default function Landing() {
   const history = useHistory();
   const hostedUI =
-    "https://handleallmyadmissions.auth.us-east-1.amazoncognito.com/login?client_id=4rnkgoi7il6kdf8foo0o929bm8&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=http://localhost:3000/Interm/";
+    `https://handleallmyadmissions.auth.us-east-1.amazoncognito.com/login?client_id=4rnkgoi7il6kdf8foo0o929bm8&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=${window.location.href}/interm`;
 
   return (
     <div className="Landing">

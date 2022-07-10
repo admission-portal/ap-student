@@ -17,7 +17,7 @@ function App() {
         <Switch>
           <ProtectedRoute path='/s' component={Main} exact />
           <Route path='/ap-student' component={Landing} exact />
-          <Route path='/interm' component={Intermediate} exact />
+          <Route path='/ap-student/interm' component={Intermediate} exact />
           <Redirect to="/ap-student" />
         </Switch>
         </ApplicationContextProvider>
