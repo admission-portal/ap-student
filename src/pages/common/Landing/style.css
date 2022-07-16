@@ -7,7 +7,7 @@
   font-family: 'Poppins', sans-serif;
 }
 
-.showcase {
+.Landing .showcase {
   position: absolute;
   right: 0;
   width: 100%;
@@ -21,11 +21,11 @@
   z-index: 2;
 }
 
-.showcase.active {
+.Landing .showcase .active {
   right: 300px;
 }
 
-.showcase img {
+.Landing .showcase img {
   position: absolute;
   top: 0;
   left: 0;
@@ -35,7 +35,7 @@
   opacity: 0.2;
 }
 
-.overlay {
+.Landing .overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -45,12 +45,12 @@
   mix-blend-mode: overlay;
 }
 
-.text {
+.Landing .text {
   position: relative;
   z-index: 10;
 }
 
-.text h2 {
+.Landing .text h2 {
   font-size: 5em;
   font-weight: 800;
   color: #fff;
@@ -58,7 +58,7 @@
   text-transform: uppercase;
 }
 
-.text h3 {
+.Landing .text h3 {
   font-size: 4em;
   font-weight: 700;
   color: #fff;
@@ -66,7 +66,7 @@
   text-transform: uppercase;
 }
 
-.text p {
+.Landing .text p {
   font-size: 1.1em;
   color: #fff;
   margin: 20px 0;
@@ -74,7 +74,7 @@
   max-width: 700px;
 }
 
-.text a {
+.Landing .letsGo {
   display: inline-block;
   font-size: 1em;
   background: #fff;
@@ -89,23 +89,23 @@
   cursor: pointer;
 }
 
-.text a:hover {
+.Landing .letsGo:hover {
   letter-spacing: 6px;
 }
 
 
 @media (max-width: 991px) {
 
-  .showcase,
-  .showcase header {
+  .Landing .showcase,
+  .Landing .showcase header {
     padding: 40px;
   }
 
-  .text h2 {
+  .Landing .text h2 {
     font-size: 3em;
   }
 
-  .text h3 {
+  .Landing .text h3 {
     font-size: 2em;
   }
 }

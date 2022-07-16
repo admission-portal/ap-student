@@ -7,6 +7,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import UserPool from '../../../UserPool';
 import './style.css';
 import { UserContext } from '../../../contexts/user';
+import { AppHeader } from '../../../components';
 
 export default function SignUp() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -104,15 +105,16 @@ export default function SignUp() {
 
   return (
     <>
+      <AppHeader />
       <Modal title="🎊 Welcome 🎊" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <h3>Welcome, on board!!🙋‍♂️</h3>
         <p>
           We have sent a confirmation link at your registered email address.
         </p>
       </Modal>
-      <section className="showcase">
+      <section className="signUp">
         <img src="https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="..." />
-        <div className="overlay" />
+
         <div className="signup-container">
           <Form
             name="normal_login"
