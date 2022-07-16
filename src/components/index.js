@@ -6,6 +6,7 @@ export { default as CCalendar } from './CCalendar';
 export { default as DashBoardCard } from './DashBoardCard';
 export { default as Updates } from './Updates';
 export { default as FormComp } from './FormComp';
-export { default as Subcard } from './Subcard';
+export { default as SubCard } from './SubCard';
 export { default as ApplicationDownloadPanel } from './ApplicationDownloadPanel';
 export { default as ApplicationSteps } from './ApplicationSteps';
+export { default as UserDropdown } from './UserDropdown';
