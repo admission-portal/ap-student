@@ -1,16 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
-.Landing .ant-layout-header{
-  background:white !important;
-}
-.showcase
-{
+
+.showcase {
   position: absolute;
   right: 0;
   width: 100%;
@@ -23,63 +20,61 @@
   transition: 0.5s;
   z-index: 2;
 }
-.showcase.active
-{
+
+.showcase.active {
   right: 300px;
 }
 
-.showcase img
-{
+.showcase img {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.8;
+  opacity: 0.2;
 }
-.overlay
-{
+
+.overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgb(96, 107, 127);
+  background: rgb(113, 129, 157);
   mix-blend-mode: overlay;
 }
-.text
-{
+
+.text {
   position: relative;
   z-index: 10;
 }
 
-.text h2
-{
+.text h2 {
   font-size: 5em;
   font-weight: 800;
   color: #fff;
   line-height: 1em;
   text-transform: uppercase;
 }
-.text h3
-{
+
+.text h3 {
   font-size: 4em;
   font-weight: 700;
   color: #fff;
   line-height: 1em;
   text-transform: uppercase;
 }
-.text p
-{
-  font-size: 1.4em;
-  color: rgb(255, 251, 217);
+
+.text p {
+  font-size: 1.1em;
+  color: #fff;
   margin: 20px 0;
-  font-weight: 600;
+  font-weight: 400;
   max-width: 700px;
 }
-.text a
-{
+
+.text a {
   display: inline-block;
   font-size: 1em;
   background: #fff;
@@ -91,27 +86,26 @@
   color: #111;
   letter-spacing: 2px;
   transition: 0.2s;
-  cursor:pointer;
+  cursor: pointer;
 }
-.text a:hover
-{
+
+.text a:hover {
   letter-spacing: 6px;
 }
 
 
-@media (max-width: 991px)
-{
+@media (max-width: 991px) {
+
   .showcase,
-  .showcase header
-  {
+  .showcase header {
     padding: 40px;
   }
-  .text h2
-  {
+
+  .text h2 {
     font-size: 3em;
   }
-  .text h3
-  {
+
+  .text h3 {
     font-size: 2em;
   }
 }
