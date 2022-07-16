@@ -16,6 +16,7 @@ import {
 } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
+import './style.css';
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;

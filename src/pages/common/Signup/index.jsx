@@ -1,18 +1,32 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
-  Button, Form, Input, message, Modal,
+  Button, DatePicker, Form, Input, message, Modal, Select,
 } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { CognitoUserAttribute } from 'amazon-cognito-identity-js';
 import UserPool from '../../../UserPool';
 import './style.css';
+import { UserContext } from '../../../contexts/user';
 
 export default function SignUp() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const history = useHistory();
+  const { user } = useContext(UserContext);
+
+  /**
+   * If user exists, redirect to the homepage.
+   */
+  useEffect(() => {
+    if (user) {
+      history.push('/s/');
+    }
+  }, []);
+
+  /**
+  * It shows a modal when the user clicks on the button.
+  * Modal, is used to show the confirmation of the registration.
+  */
   const showModal = () => {
-    console.log('showModal');
     setIsModalVisible(true);
   };
 
@@ -26,36 +40,68 @@ export default function SignUp() {
   };
 
   const onFinish = (values) => {
-    const usenameattribute = {
+    /**
+     * Creates a new user in the user pool.
+     */
+
+    /**
+     * if password and confirm password are not equal, show an error message.
+     */
+    if (values.password !== values.confirmPassword) {
+      message.error('Password does not match');
+      return;
+    }
+
+    // /!undefined == True.
+
+    if (!values) return;
+
+    /**
+     * Attributes are attached to the user identity.
+     */
+    const attributeList = [];
+    attributeList.push({
       Name: 'name',
-      Value: values.email,
-    };
-    const pnAttribute = {
+      Value: values.name,
+    });
+
+    const phoneNumber = `+91${values.phone_number}`;
+    attributeList.push({
       Name: 'phone_number',
-      Value: values.phone_number,
-    };
-    const addressAttriibute = {
+      Value: phoneNumber,
+    });
+
+    attributeList.push({
       Name: 'address',
       value: values.email,
-    };
-    const attributeList = [];
-    attributeList.push(new CognitoUserAttribute(usenameattribute));
-    attributeList.push(new CognitoUserAttribute(pnAttribute));
-    attributeList.push(new CognitoUserAttribute(addressAttriibute));
+    });
+
+    attributeList.push({
+      Name: 'email',
+      Value: values.email,
+    });
+
+    attributeList.push({
+      Name: 'birthdate',
+      Value: values.birthDate,
+    });
+
+    attributeList.push({
+      Name: 'gender',
+      Value: values.gender,
+    });
 
     UserPool.signUp(values.email, values.password, attributeList, null, (err, result) => {
       if (err) {
-        console.log('signUp', err.message, result);
         message.error(err.message);
       }
-      if (!err) {
+      if (!err && result) {
         message.success('Sign up successfully!');
         showModal();
-        console.log('signUp', result);
-        // history.push('/login');
       }
     });
   };
+
   return (
     <>
       <Modal title="🎊 Welcome 🎊" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
@@ -82,10 +128,70 @@ export default function SignUp() {
                   required: true,
                   message: 'Please input your email!',
                 },
+                {
+                  type: 'email',
+                  message: 'Please input a valid email!',
+                },
               ]}
             >
               <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
             </Form.Item>
+
+            <Form.Item
+              name="name"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your name!',
+                },
+                {
+                  type: 'string',
+                  message: 'Must not contain numbers and special characters',
+                },
+                {
+                  min: 3,
+                  message: 'Name must be at least 3 characters',
+                },
+              ]}
+            >
+              <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Name" />
+            </Form.Item>
+            <Form.Item
+              name="birthDate"
+              label="Birth Date"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your Birth date!',
+                },
+              ]}
+            >
+              <DatePicker format="DD-MM-YYYY " />
+            </Form.Item>
+
+            <Form.Item
+              name="gender"
+              label="Gender"
+              rules={
+                [
+                  {
+                    required: true,
+                    message: 'please select you gender!',
+                  },
+                  {
+                    enum: ['Male', 'Female', 'Other'],
+                    message: 'Please select from given options',
+                  },
+                ]
+              }
+            >
+              <Select>
+                <Select.Option value="male">Male</Select.Option>
+                <Select.Option value="female">Female</Select.Option>
+                <Select.Option value="Other">Other</Select.Option>
+              </Select>
+            </Form.Item>
+
             <Form.Item
               name="phone_number"
               rules={[
@@ -93,16 +199,32 @@ export default function SignUp() {
                   required: true,
                   message: 'Please input your phone number!',
                 },
+                {
+                  len: 10,
+                  message: 'Phone number must be 10 digits',
+                },
               ]}
             >
-              <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Phone number" />
+              <Input
+                addonBefore="+91"
+                placeholder="Phone number"
+              />
             </Form.Item>
+
             <Form.Item
               name="password"
               rules={[
                 {
                   required: true,
                   message: 'Please input your Password!',
+                },
+                {
+                  min: 8,
+                  message: 'Password must be at least 8 characters',
+                },
+                {
+                  pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                  message: 'Password must contain at least one uppercase, one lowercase, one number and one special character',
                 },
               ]}
             >
@@ -112,10 +234,28 @@ export default function SignUp() {
                 placeholder="Password"
               />
             </Form.Item>
-            <Form.Item>
-              <Link className="login-form-forgot" to="/">
-                Forgot password
-              </Link>
+            <Form.Item
+              name="confirm-password"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your Password!',
+                },
+                {
+                  min: 8,
+                  message: 'Password must be at least 8 characters',
+                },
+                {
+                  pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                  message: 'Password must contain at least one uppercase, one lowercase, one number and one special character',
+                },
+              ]}
+            >
+              <Input
+                prefix={<LockOutlined className="site-form-item-icon" />}
+                type="password"
+                placeholder="Confirm Password"
+              />
             </Form.Item>
 
             <Form.Item>
@@ -134,4 +274,3 @@ export default function SignUp() {
     </>
   );
 }
-// res.codeDeliveryDetails.AttributeName

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /**
- * SUBCARD:
+ * SubCard:
  * tiny Cards , that will be embedded in the containers for example ApplicationCard
  * @param data - object which contains @title and @subtitle
  *  Written By : Tejas ladhani

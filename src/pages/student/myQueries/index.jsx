@@ -3,7 +3,7 @@
  * -TEJAS LADHANI
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Layout, Row, Tabs, Col, Modal, Typography, Button, Spin,
 } from 'antd';
@@ -15,6 +15,7 @@ import { FormComp } from '../../../components';
 import data from './ModalConfig';
 
 import './style.css';
+import { UserContext } from '../../../contexts/user';
 
 const { TabPane } = Tabs;
 let tabkey = 0;
@@ -35,7 +36,8 @@ const getTodaysDate = () => {
 };
 
 export default function MyQueries() {
-  // state to maintain the list of all the queries reciveing after the API CALL.
+  const { user } = useContext(UserContext);
+  // state to maintain the list of all the queries receiving after the API CALL.
   const [QueryList, setQueryList] = useState();
 
   /**
@@ -68,7 +70,7 @@ export default function MyQueries() {
     setIsModalVisible(false);
   };
 
-  const useremail = JSON.parse(sessionStorage.getItem('u_decoded'));
+  const useremail = user.idToken.payload.email;
 
   const onCreateQuery = (val) => {
     /**
@@ -77,7 +79,7 @@ export default function MyQueries() {
      * {FormComp} component is being used by multiple components. => Hail Reusability.
      */
     const queryData = JSON.stringify({
-      email: useremail.email,
+      email: useremail,
       qObj: {
         querydate: getTodaysDate(),
         querystatus: {
@@ -97,7 +99,7 @@ export default function MyQueries() {
       method: 'put',
       url: 'https://0icg981cjj.execute-api.us-east-1.amazonaws.com/d1/studentqueries',
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem('id_token')}`,
+        Authorization: `Bearer ${user.idToken.jwtToken}`,
         'Content-Type': 'application/json',
       },
       queryData,
@@ -132,9 +134,9 @@ export default function MyQueries() {
      */
     const config = {
       method: 'get',
-      url: `https://0icg981cjj.execute-api.us-east-1.amazonaws.com/d1/studentqueries?email=${useremail.email}`,
+      url: `https://0icg981cjj.execute-api.us-east-1.amazonaws.com/d1/studentqueries?email=${useremail}`,
       headers: {
-        Authorization: sessionStorage.getItem('id_token') ? sessionStorage.getItem('id_token') : '',
+        Authorization: user.idToken.jwtToken,
       },
     };
 

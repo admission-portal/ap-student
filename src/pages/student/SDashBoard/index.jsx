@@ -7,16 +7,18 @@
  *
  * Written By : Tejas Ladhani
  */
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Row, Col, Layout, Typography, Steps,
 } from 'antd';
 import { DashBoardCard } from '../../../components';
 import './style.css';
+import { UserContext } from '../../../contexts/user';
 
 export default function SDashBoard() {
+  const { user } = useContext(UserContext);
   const UserName = () => {
-    const temp = JSON.parse(sessionStorage.getItem('u_decoded'));
+    const temp = user.idToken.payload;
     // console.log(temp.name)
     return temp.name;
   };

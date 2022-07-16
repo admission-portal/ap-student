@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {
-  BrowserRouter, Route, Switch,
+  BrowserRouter, Redirect, Route, Switch,
 } from 'react-router-dom';
 import { Layout } from 'antd';
 import {
@@ -17,10 +17,8 @@ import {
   Landing, Login, Profile, Signup,
 } from './pages/common';
 import { UserContextProvider } from './contexts/user';
-import { ApplicationContextProvider } from './contexts/applicationcontext';
-import {
-  AppHeader, AppSider, AppFooter,
-} from './components';
+import { ApplicationContextProvider } from './contexts/applicationContext';
+import { AppHeader, AppSider, AppFooter } from './components';
 import {
   SDashBoard,
   Documents,
@@ -49,11 +47,11 @@ const studentSiderData = [
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/ap-student">
       <UserContextProvider>
         <ApplicationContextProvider>
           <Switch>
-            <Route path="/ap-student" component={Landing} exact />
+            <Route path="/" component={Landing} exact />
             <Route path="/login" component={Login} exact />
             <Route path="/signup" component={Signup} exact />
             {/* <Redirect to="/ap-student" /> */}
@@ -107,6 +105,7 @@ function App() {
                 </Layout>
               </Layout>
             </Layout>
+            <Redirect to="/" />
           </Switch>
         </ApplicationContextProvider>
       </UserContextProvider>

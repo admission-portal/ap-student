@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './style.css';
 import {
   Steps, Button, message, Row, Col,
 } from 'antd';
 import axios from 'axios';
 import PaymentButton from '../../components/PaymentButton';
+import { UserContext } from '../../contexts/user';
 
 const { Step } = Steps;
 
@@ -32,6 +33,7 @@ const steps = [
 ];
 
 export default function FormWithStep({ application }) {
+  const { user } = useContext(UserContext);
   //   console.log("from form step", application);
   const [current, setCurrent] = React.useState(0);
 
@@ -47,8 +49,7 @@ export default function FormWithStep({ application }) {
   };
 
   // !check this
-  // eslint-disable-next-line no-unused-vars
-  const [ClickedOnEdit, setClickedOnEdit] = useState(false);
+  const [ClickedOnEdit] = useState(false);
   const { ApplicationID } = application;
   const fields = application.GlobalLabels;
 
@@ -73,7 +74,7 @@ export default function FormWithStep({ application }) {
   });
 
   // console.log(formData.PersonalDetails);
-  const userEmail = JSON.parse(sessionStorage.getItem('u_decoded'));
+  const userEmail = user.idToken.payload.email;
   const getTodaysDate = () => {
     const timestamp = Date.now();
     return timestamp;
@@ -81,12 +82,11 @@ export default function FormWithStep({ application }) {
 
   // get the submitted data from the database if present.
   const getSavedData = () => {
-    console.log(userEmail.email, ' ', ApplicationID);
     const config = {
       method: 'get',
-      url: `https://0icg981cjj.execute-api.us-east-1.amazonaws.com/d1/Get_Submitted_Applications?id=${ApplicationID}_${userEmail.email}`,
+      url: `https://0icg981cjj.execute-api.us-east-1.amazonaws.com/d1/Get_Submitted_Applications?id=${ApplicationID}_${user.idToken.payload.email}`,
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem('id_token')}`,
+        Authorization: `Bearer ${user.idToken.jwtToken}`,
         'Content-Type': 'application/json',
       },
     };
@@ -95,48 +95,42 @@ export default function FormWithStep({ application }) {
         // this is the submission data if it exists
         const preliminaryData = response.data.body;
         setFormData(preliminaryData.Item.submission[0].submissiondata);
-        console.log(
-          '\n',
-          preliminaryData.Item.submission[0].submissiondata,
-          '\n',
-        );
-        console.log(formData.PersonalDetails);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        // error handling
+        message.error('Something went wrong, please try again later.');
       });
   };
 
   const ApiFunction = (val) => {
-    console.log('val', val);
     const data = {
       applicationid: val.ApplicationID,
-      email: userEmail.email,
+      email: userEmail,
       submission: {
         submissiontimestamp: getTodaysDate(),
         submissiondata: val,
       },
     };
-    console.log(data);
+
     const config = {
       method: 'put',
       url: 'https://0icg981cjj.execute-api.us-east-1.amazonaws.com/d1/putapplication',
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem('id_token')}`,
+        Authorization: `Bearer ${user.idToken.jwtToken}`,
         'Content-Type': 'application/json',
       },
       data,
     };
 
     axios(config)
-      .then((response) => {
-        console.log(JSON.stringify(response.data));
+      .then(() => {
+        message.success('saved!');
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        message.error('You offline ?');
       });
   };
-  // console.log(formData.PersonalDetails[0]['1']);
+
   useEffect(() => {
     getSavedData();
   }, []);

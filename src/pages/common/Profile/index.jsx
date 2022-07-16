@@ -1,5 +1,4 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import {
   EditFilled,
   SafetyCertificateFilled,
@@ -23,25 +22,23 @@ const studentProfileData = [
 export default function Profile() {
   return (
     <div className="Profile" style={{ marginTop: '2em' }}>
-      <BrowserRouter>
-        <Layout>
-          <Tabs defaultActiveKey="1" tabPosition="left" style={{ minHeight: '80vh' }} type="card">
-            {studentProfileData.map((i) => (
-              <TabPane
-                tab={(
-                  <span>
-                    {i.icon}
-                    {i.title}
-                  </span>
+      <Layout>
+        <Tabs defaultActiveKey="1" tabPosition="left" style={{ minHeight: '80vh' }} type="card">
+          {studentProfileData.map((i) => (
+            <TabPane
+              tab={(
+                <span>
+                  {i.icon}
+                  {i.title}
+                </span>
 )}
-                key={i.title}
-              >
-                {i.component}
-              </TabPane>
-            ))}
-          </Tabs>
-        </Layout>
-      </BrowserRouter>
+              key={i.title}
+            >
+              {i.component}
+            </TabPane>
+          ))}
+        </Tabs>
+      </Layout>
 
     </div>
   );

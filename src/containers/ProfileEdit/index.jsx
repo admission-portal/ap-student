@@ -14,20 +14,16 @@ import ProfilePicCard from '../ProfilePicCard/index';
 const { Title } = Typography;
 
 export default function ProfileEdit() {
-  const [user] = useContext(UserContext);
-  const userData = JSON.parse(user);
+  const { user } = useContext(UserContext);
   const apiFunc = (val) => {
     // console.log(val);
-    if (sessionStorage.getItem('id_token') != null) {
-      // eslint-disable-next-line camelcase
-      const id_token = sessionStorage.getItem('id_token');
+    if (user) {
       const myHeaders = new Headers();
-      // eslint-disable-next-line camelcase
-      myHeaders.append('Authorization', `Bearer ${id_token}`);
+      myHeaders.append('Authorization', `Bearer ${user.idToken.jwtToken}`);
       myHeaders.append('Content-Type', 'application/json');
 
       const raw = JSON.stringify({
-        email: userData.email,
+        email: user.idToken.payload.email,
         nationality: val.Nationality,
         dob: val.dateofbirth,
         gender: val.gender,
@@ -45,12 +41,10 @@ export default function ProfileEdit() {
 
       fetch('https://0icg981cjj.execute-api.us-east-1.amazonaws.com/d1/items', requestOptions)
         .then((response) => response.text())
-        .then((result) => console.log(result))
-        .catch((error) => console.log('error', error));
+        .then()
+        .catch();
 
       document.getElementById('ProfileForm').reset();
-    } else {
-      alert('Token Not Present !');
     }
   };
   const data = [

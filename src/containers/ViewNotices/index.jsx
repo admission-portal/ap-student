@@ -1,16 +1,18 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable react/no-array-index-key */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Skeleton, Card, Row, Col, Spin,
 } from 'antd';
 import { EditOutlined, EllipsisOutlined, DeleteOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import './style.css';
+import { UserContext } from '../../contexts/user';
 
 const { Meta } = Card;
 
 export default function ViewNotices() {
+  const { user } = useContext(UserContext);
   const [Notices, setNotices] = useState();
   // const [IsLoading, setIsLoading] = useState(true)
 
@@ -19,19 +21,16 @@ export default function ViewNotices() {
       method: 'get',
       url: 'https://0icg981cjj.execute-api.us-east-1.amazonaws.com/d1/notices',
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem('id_token')}`,
+        Authorization: `Bearer ${user.idToken.jwtToken}`,
       },
     };
 
     axios(config)
       .then((response) => {
         const result = JSON.parse(response.data);
-        if (result.ResponseMetadata.HTTPStatusCode == 200) { setNotices(result.Items); } else { console.log('Error!'); }
-        console.log(result);
+        if (result.ResponseMetadata.HTTPStatusCode == 200) { setNotices(result.Items); }
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch();
   }, []);
   return (
     <div className="ViewNotices">
@@ -46,7 +45,6 @@ export default function ViewNotices() {
                 <DeleteOutlined key="delete" />,
                 <EllipsisOutlined key="ellipsis" />,
               ]}
-                                // hoverable
               extra={item.NoticeID}
             >
               <Skeleton loading={false} avatar active>

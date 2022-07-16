@@ -1,7 +1,9 @@
-import { Button, Form, Input } from 'antd';
+import {
+  Button, Form, Input, message,
+} from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { UserContext } from '../../../contexts/user';
 import './style.css';
 
@@ -9,16 +11,20 @@ export default function Login() {
   const history = useHistory();
   const { authenticate, user, setUser } = useContext(UserContext);
 
+  useEffect(() => {
+    if (user) {
+      history.push('/s/');
+    }
+  }, []);
+
   const onFinish = (values) => {
-    console.log('Received values of form: ', values);
     authenticate(values.email, values.password)
       .then((data) => {
         setUser(data);
-        console.log('Logged in!', typeof data.idToken.jwtToken, typeof user, user);
-        history.push('/adm/');
+        history.push('/s/');
       })
       .catch((err) => {
-        console.error('Failed to login!', err);
+        message.error(err.message);
       });
   };
 
@@ -41,6 +47,10 @@ export default function Login() {
                 required: true,
                 message: 'Please input your email!',
               },
+              {
+                type: 'email',
+                message: 'Please input a valid email!',
+              },
             ]}
           >
             <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
@@ -51,6 +61,14 @@ export default function Login() {
               {
                 required: true,
                 message: 'Please input your Password!',
+              },
+              {
+                min: 8,
+                message: 'Password must be at least 8 characters!',
+              },
+              {
+                pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                message: 'Password must contain at least one uppercase, one lowercase, one number and one special character',
               },
             ]}
           >

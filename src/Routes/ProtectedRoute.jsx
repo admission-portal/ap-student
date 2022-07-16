@@ -5,7 +5,7 @@ import { UserContext } from '../contexts/user';
 
 // eslint-disable-next-line react/prop-types
 function ProtectedRoute({ component: RouteComponent, ...rest }) {
-  const [user] = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   return (
     <Route

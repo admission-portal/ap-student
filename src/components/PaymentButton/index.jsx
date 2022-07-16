@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-no-bind */
-import { Button } from 'antd';
-import React from 'react';
+import { Button, message } from 'antd';
+import React, { useContext } from 'react';
 import axios from 'axios';
 import './style.css';
+import { UserContext } from '../../contexts/user';
 
 /**
  *
@@ -40,7 +41,9 @@ export default function PaymentButton({
   applicationId,
   setPaymentInfo,
 }) {
-  const UserMetaData = JSON.parse(sessionStorage.getItem('u_decoded'));
+  const { user } = useContext(UserContext);
+
+  const UserMetaData = user.idToken.payload;
 
   function getOrderId(amnt, appId, email) {
     const data = JSON.stringify({
@@ -52,7 +55,7 @@ export default function PaymentButton({
       method: 'post',
       url: 'https://0icg981cjj.execute-api.us-east-1.amazonaws.com/d1/payment',
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem('id_token')} `,
+        Authorization: `Bearer ${user.idToken.jwtToken} `,
         'Content-Type': 'application/json',
       },
       data,
@@ -63,8 +66,8 @@ export default function PaymentButton({
         sessionStorage.setItem('order_id', response.data.id);
         return response.data.id;
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        message.error(err.message);
       });
   }
 
@@ -74,7 +77,8 @@ export default function PaymentButton({
     );
 
     if (!res) {
-      alert('Razorpay SDK failed to load. Are you online?');
+      // Razorpay SDK failed to load.
+      message.error('please check your internet connectivity.');
       return;
     }
     // !order id is not getting saved in DB (but getting in RAZORPAY db)
@@ -87,7 +91,6 @@ export default function PaymentButton({
       description: 'Thank you for paying the Fees.You will hear from us soon !',
       handler(response) {
         // !DIsCUSS THIS
-        console.log(response);
 
         setPaymentInfo({
           order_id: odi,

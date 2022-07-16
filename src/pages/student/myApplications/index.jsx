@@ -8,11 +8,12 @@
 import './style.css';
 import React, { useEffect, useState, useContext } from 'react';
 import {
-  Layout, Row, Col, Typography, Tabs, Spin,
+  Layout, Row, Col, Typography, Tabs, Spin, message,
 } from 'antd';
 import axios from 'axios';
 import { ApplicationCard } from '../../../containers';
-import { ApplicationContext } from '../../../contexts/applicationcontext';
+import { ApplicationContext } from '../../../contexts/applicationContext';
+import { UserContext } from '../../../contexts/user';
 
 const { TabPane } = Tabs;
 
@@ -20,20 +21,21 @@ const ApplicationCardData = [
   {
     title: 'BTech Application Form',
     subCard: [
-      { title: 'Appication No.', subtitle: '...' },
-      { title: 'Applcation Fee', subtitle: '...' },
+      { title: 'Application No.', subtitle: '...' },
+      { title: 'Application Fee', subtitle: '...' },
       { title: 'Last Date', subtitle: '...' },
       { title: 'Payment Mode', subtitle: '...' },
     ],
     downloadPanelData: [],
-    setpsData: [],
+    stepsData: [],
   },
 ];
 
 export default function MyApplications() {
+  const { user } = useContext(UserContext);
   const [count] = useState(0);
-  const [applicationcarddetails, setapplicationcarddetails] = useState(ApplicationCardData);
-  const [applicationdetails, setapplicationdetails] = useContext(ApplicationContext);
+  const [applicationCardDetails, setApplicationCardDetails] = useState(ApplicationCardData);
+  const [, setApplicationDetails] = useContext(ApplicationContext);
   let ApplicationCardDataV1 = [];
 
   useEffect(() => {
@@ -41,29 +43,25 @@ export default function MyApplications() {
       method: 'get',
       url: 'https://0icg981cjj.execute-api.us-east-1.amazonaws.com/d1/applications',
       headers: {
-        Authorization: sessionStorage.getItem('id_token')
-          ? sessionStorage.getItem('id_token')
-          : '',
+        Authorization: user.idToken.jwtToken,
       },
     };
 
     axios(config)
       .then((response) => {
         ApplicationCardDataV1 = response.data.Items;
-        setapplicationcarddetails(ApplicationCardDataV1);
+        setApplicationCardDetails(ApplicationCardDataV1);
         // console.log(ApplicationCardDataV1);
-        setapplicationdetails(ApplicationCardDataV1);
+        setApplicationDetails(ApplicationCardDataV1);
         // !check
         // ApplicationCardDataV1.map((item) => {
         //   // console.log(item["GlobalLabels"]["Payment Modes"].map(item => item.title));
         // });
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        message.error('Something went wrong, please try again later.');
       });
   }, [count]);
-
-  console.log(applicationdetails);
 
   return (
     <div className="myApplications" style={{ marginTop: '1.5em' }}>
@@ -84,13 +82,13 @@ export default function MyApplications() {
           <Col span={24}>
             <Tabs defaultActiveKey="1" onChange={() => {}}>
               <TabPane
-                tab={`${applicationcarddetails.length} Applcations(s) open`}
+                tab={`${applicationCardDetails.length} Applications(s) open`}
                 key="1"
               >
-                {applicationcarddetails.length < 2 ? (
+                {applicationCardDetails.length < 2 ? (
                   <Spin />
                 ) : (
-                  applicationcarddetails.map((data) => (
+                  applicationCardDetails.map((data) => (
                     <ApplicationCard
                       key={data.ApplicationID}
                       title={data.title}
@@ -104,7 +102,7 @@ export default function MyApplications() {
                         { title: 'Payment Mode', subtitle: 'online' },
                       ]}
                       downloadPanelData={data.downloadPanelData}
-                      setpsData={data.setpsData}
+                      stepsData={data.stepsData}
                     />
                   ))
                 )}

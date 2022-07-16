@@ -1,6 +1,6 @@
 /* eslint-disable eqeqeq */
 import {
-  Row, Col, Divider, Typography, Tag, Avatar, Spin,
+  Row, Col, Divider, Typography, Tag, Avatar, Spin, message,
 } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useContext, useState } from 'react';
@@ -10,16 +10,16 @@ import { UserContext } from '../../contexts/user';
 import './style.css';
 
 export default function ProfileDisplay() {
-  const [user] = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [ProfileData, setProfileData] = useState();
   const [count] = useState(0);
-  const userData = JSON.parse(user);
+
   useEffect(() => {
     const config = {
       method: 'get',
-      url: `https://0icg981cjj.execute-api.us-east-1.amazonaws.com/d1/items?email=${userData.email}`,
+      url: `https://0icg981cjj.execute-api.us-east-1.amazonaws.com/d1/items?email=${user.idToken.payload.email}`,
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem('id_token')}`,
+        Authorization: `Bearer ${user.idToken.jwtToken}`,
       },
     };
 
@@ -27,10 +27,9 @@ export default function ProfileDisplay() {
       .then((response) => {
         const temp = JSON.parse(response.data);
         setProfileData(temp.body);
-        console.log(temp.body);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        message.error('Something went wrong, please try again later.');
       });
   }, [count]);
 

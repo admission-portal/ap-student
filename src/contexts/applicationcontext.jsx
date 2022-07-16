@@ -5,9 +5,9 @@ import React, { createContext, useState } from 'react';
 export const ApplicationContext = createContext();
 
 export function ApplicationContextProvider({ children }) {
-  const [applicationdetails, setapplicationdetails] = useState({});
+  const [applicationDetails, setApplicationDetails] = useState({});
   return (
-    <ApplicationContext.Provider value={[applicationdetails, setapplicationdetails]}>
+    <ApplicationContext.Provider value={[applicationDetails, setApplicationDetails]}>
       {children}
     </ApplicationContext.Provider>
   );

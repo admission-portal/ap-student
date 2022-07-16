@@ -42,9 +42,11 @@ export function UserContextProvider({ children }) {
         if (err) {
           console.log('Error getting the session:', err);
         } else if (session.isValid()) {
+          console.log('Session is valid:', session);
           setUser(session);
         }
       });
+      console.log('User is logged in!', user);
     } else {
       console.log('No user logged in');
     }

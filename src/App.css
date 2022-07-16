@@ -1,8 +1,5 @@
 @import '~antd/dist/antd.css';
 
-.logout {
-  cursor: pointer;
-}
 
 .site-layout .site-layout-background {
   background: #EDEDED;
